@@ -1,14 +1,15 @@
-import ClassParameter
+#import ClassParameter
 from ClassTest import *
 import numpy as np
 
+"""
+La classe Eleve représente un élève et ses différents test.
+"""
 class Eleve:
-    ID = None;
-    sexe = None;
-    tests = None;
-    RS = None;
-    Note = None;
-    TE = None;
+    ID = None          # ID de l'élève (dépend de la classes dans laquelle il se trouve si plusieurs fichiers excel)
+    sexe = None        # Sexe de l'élève
+    tests = None       # L'ensemble des tests de l'élèves
+    Note = None        # Moyenne de l'élève sans DC
     def __init__(self, id, groupe, data, sexe, param, label = None, label_type=None):
         self.ID = id + 1000*groupe;
         self.sexe = sexe;
@@ -24,7 +25,4 @@ class Eleve:
                 N_tmp +=1 ;
 
         self.Note = tmp/N_tmp;
-
-
-
 

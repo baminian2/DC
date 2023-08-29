@@ -17,14 +17,19 @@ from ClassTest import *
 from ClassEleve import *
 from ClassStatistics import *
 from ClassInitialization import *
+import pandas as pd
+import xlsxwriter
 
 #np.set_printoptions(suppress = True)
 
 if __name__ == '__main__':
     sample = ['ClassA', 'ClassB'];
+    #sample = ['data_seuil_55_baminian']
+    #sample = ['data_ClassB_seuil_55_baminian']
     # sample = ['ClassA'];
     # sample = ['TestData'];
     data, sexes, label_questions = Init_data(sample);
+    print(sexes)
     param = np.empty(len(sample), dtype=Parametres)
     N_tot = 0;
     for k in range(len(sample)):
@@ -38,6 +43,7 @@ if __name__ == '__main__':
     labeled_b = [];
     labeled_m = [];
     labeled_h = [];
+
 
 
     for i in range(N_tot):
@@ -63,18 +69,37 @@ if __name__ == '__main__':
         RS_h = stats.RS_Calib[labeled_h,i].flatten();
         RS_h = RS_h[np.logical_not(np.isnan(RS_h))]
 
-        print(np.max(RS))
-        RS_all.append(RS_m)
+        RS_all.append(RS)
 
 
     label_x = ("TF", "TS1", "TA1", "TA2", "TS2", "TA3", "TS3");
+    label_exel = ("Class", "ID", "TF", "TS1", "TA1", "TA2", "TS2", "TA3", "TS3");
 
     label_x2 = ("Insuffisant", "Faible", "Satisfaisant", "Bon", "Excellent")
     x = [0.55, 0.77, 0.87, 0.925,0.9725]
     bins = [0.0, 0.705, 0.705, 0.835, 0.835, 0.905, 0.905, 0.95, 0.95, 1]
 
+    Rs_excel = stats.RS_Pros;
+    Excel_data = [];
+    for i in range(Rs_excel.shape[0]):
+        Excel_data_line = [];
+        id = stats.eleves[i].ID
+        if (id < 100):
+            Excel_data_line.append('A')
+        else:
+            Excel_data_line.append('B')
+        Excel_data_line.append(id)
+        for j in range(Rs_excel.shape[1]):
+            Excel_data_line.append(Rs_excel[i][j])
+        Excel_data.append(Excel_data_line)
 
     """
+    writer = pd.ExcelWriter('result/Rs_Prosperi_seuil_55_baminian2.ods')
+    df = pd.DataFrame(Excel_data)
+    df.to_excel(writer, sheet_name="Realisme", index=False, header = label_exel)
+    writer.save()
+
+    
     plt.figure('Realisme hist')
     plt.hist(RS_ALL, bins, label='Tous', density=True)
     plt.hist(RS_all[0], bins, label='TF', density=True, histtype='step')
@@ -111,6 +136,9 @@ if __name__ == '__main__':
     ax2.set(xlabel='Réalisme', ylabel= 'Probabilité')
     plt.legend(title = 'Réalisme (Rs)',loc='upper left', labels = label_x)
     #plt.xlim(0.5,1)
+
+    plt.figure("New")
+    plt.boxplot([RS_all[0], RS_all[1], RS_all[2], RS_all[3], RS_all[4], RS_all[5], RS_all[6]], showmeans=True)
 
     #seaborn.displot(RS_all[1], palette= seaborn.color_palette("hls", 7), legend=False, kde=True)
 

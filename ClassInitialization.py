@@ -1,6 +1,18 @@
 import pandas as pd
 import numpy as np
 
+# Initialisation des données
+"""
+Ignore les deux premières colonnes (Prénom, Nom)
+Les cases vides sont considérées comme NaN.
+Entrées: les noms des échantillons (doit être dans 
+         le dossier data et de format ods.
+Sorties: 
+    data: les données (nombre de points au total par questions,
+    nombre de points obtenus par questions, degré de certitude)
+    Label_questions: première ligne du tableau excel.
+    sexes: sexe des participants.
+"""
 
 def Init_data(sample):
     data = [];

@@ -5,11 +5,11 @@ from ClassEleve import *
 class Statistic_Data:
     param = None;
     eleves = None;
+
     Note = [];
     Note_Seuil = [];
     Note_DC = [];
 
-    Note_JF = [];
     NoteDC = [];
     NoteDC_continu = [];
     TE = [];
@@ -298,158 +298,7 @@ class Statistic_Data:
         self.RS_Qrom2 = RS_Qrom2;
         self.RS_Qrol2 = RS_Qrol2;
 
-    def computeNote_test(self):
-        meanRS = np.zeros(self.param[0].N_tests);
-        tmp = self.param[0].N_eleves;
-        for j in range((self.param[0].N_tests)):
-            tmp2 = 0;
-            for k in range(len(self.param)):
-                for i in range(self.param[k].N_eleves):
-                    if (self.eleves[i + k*tmp].tests[j].Present) :
-                        tmp2 += 1;
-                        meanRS[j] += self.eleves[i + k * tmp ].tests[j].Note
-            meanRS[j] = meanRS[j]/tmp2;
 
-        self.meanNote = meanRS;
-    def computeTE_test(self):
-        meanRS = np.zeros(self.param[0].N_tests);
-        tmp = self.param[0].N_eleves;
-        for j in range((self.param[0].N_tests)):
-            tmp2 = 0;
-            for k in range(len(self.param)):
-                for i in range(self.param[k].N_eleves):
-                    if (self.eleves[i + k*tmp].tests[j].Present) :
-                        tmp2 += 1;
-                        meanRS[j] += self.eleves[i + k * tmp ].tests[j].meanTE
-            meanRS[j] = meanRS[j]/tmp2;
-
-        self.meanTE = meanRS;
-
-    def computeTE_Qrom_test(self):
-        meanRS = np.zeros(self.param[0].N_tests);
-        tmp = self.param[0].N_eleves;
-        for j in range((self.param[0].N_tests)):
-            tmp2 = 0;
-            for k in range(len(self.param)):
-                for i in range(self.param[k].N_eleves):
-                    if (self.eleves[i + k*tmp].tests[j].Present) :
-                        tmp2 += 1;
-                        meanRS[j] += self.eleves[i + k * tmp ].tests[j].meanTE_Qrom
-            meanRS[j] = meanRS[j]/tmp2;
-
-        self.meanTE_Qrom = meanRS;
-
-    def computeTE_Qrol_test(self):
-        meanRS = np.zeros(self.param[0].N_tests);
-        tmp = self.param[0].N_eleves;
-        for j in range((self.param[0].N_tests)):
-            tmp2 = 0;
-            for k in range(len(self.param)):
-                for i in range(self.param[k].N_eleves):
-                    if (self.eleves[i + k*tmp].tests[j].Present) :
-                        tmp2 += 1;
-                        meanRS[j] += self.eleves[i + k * tmp ].tests[j].meanTE_Qrol
-            meanRS[j] = meanRS[j]/tmp2;
-
-        self.meanTE_Qrol = meanRS;
-
-    def computeRS_test(self):
-        meanRS = np.zeros(self.param[0].N_tests);
-        tmp = self.param[0].N_eleves;
-        for j in range((self.param[0].N_tests)):
-            tmp2 = 0;
-            for k in range(len(self.param)):
-                for i in range(self.param[k].N_eleves):
-                    if (self.eleves[i + k*tmp].tests[j].Present) :
-                        tmp2 += 1;
-                        meanRS[j] += self.eleves[i + k * tmp ].tests[j].RS
-            meanRS[j] = meanRS[j]/tmp2;
-
-        self.meanRS = meanRS;
-    def computeRS_Qrom_test(self):
-        meanRS = np.zeros(self.param[0].N_tests);
-        tmp = self.param[0].N_eleves;
-        for j in range((self.param[0].N_tests)):
-            tmp2 = 0;
-            for k in range(len(self.param)):
-                for i in range(self.param[k].N_eleves):
-                    if (self.eleves[i + k*tmp].tests[j].Present) :
-                        tmp2 += 1;
-                        meanRS[j] += self.eleves[i + k * tmp ].tests[j].RS_Qrom
-            meanRS[j] = meanRS[j]/tmp2;
-
-        self.meanRS_Qrom = meanRS;
-
-    def computeRS_Qrol_test(self):
-        meanRS = np.zeros(self.param[0].N_tests);
-        tmp = self.param[0].N_eleves;
-        for j in range((self.param[0].N_tests)):
-            tmp2 = 0;
-            for k in range(len(self.param)):
-                for i in range(self.param[k].N_eleves):
-                    if (self.eleves[i + k*tmp].tests[j].Present) :
-                        tmp2 += 1;
-                        meanRS[j] += self.eleves[i + k * tmp ].tests[j].RS_Qrol
-            meanRS[j] = meanRS[j]/tmp2;
-
-        self.meanRS_Qrol = meanRS;
-    def computeRS_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.RS.append(test.RS);
-    def computeRS_Qrom_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.RS_Qrom.append(test.RS_Qrom);
-    def computeRS_Qrol_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.RS_Qrol.append(test.RS_Qrol);
-    def computeNote_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.Note.append(test.Note);
-    def computeNoteDC_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.NoteDC.append(test.NoteDC);
-    def computeNote_JF_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.Note_JF.append(test.Note_JF);
-    def computeNoteDC_continu_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.NoteDC_continu.append(test.NoteDC_continue);
-
-    def computeTE_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.TE.append(test.meanTE);
-
-    def computeCentration_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.centration.append(test.centration);
-    def computeMC_eleve_test(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.MC.append(test.MC);
-    def computeTemps(self):
-        for eleve in self.eleves:
-            for test in eleve.tests:
-                if (test.Present) :
-                    self.temps.append(test.ID);
 
 
     def __init__(self, data, sexes, param, label=None, label_type= None):
@@ -468,31 +317,10 @@ class Statistic_Data:
                     self.eleves[i + tmp] = Eleve(i, k, data[k], sexes[k][i],self.param[k], label[k], label_type)
             tmp += self.param[k].N_eleves;
 
-        self.computeRS_eleve_test();
-        self.computeRS_Qrom_eleve_test();
-        self.computeRS_Qrol_eleve_test();
-        self.computeNote_eleve_test();
-        self.computeTE_eleve_test();
-        self.computeTemps();
-
-        self.computeRS_test();
-        self.computeRS_Qrom_test();
-        self.computeRS_Qrol_test();
-
-        self.computeNote_test();
-
-        self.computeTE_test();
-        self.computeTE_Qrom_test();
-        self.computeTE_Qrol_test();
 
         self.computeDiffRS();
 
         self.computeRS_FG();
-
-
-        self.computeMC_eleve_test();
-        self.computeCentration_eleve_test();
-        self.computeCentration_eleve_test();
 
         self.computeRS();
         self.computeRS_Pros();
